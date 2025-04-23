@@ -47,7 +47,7 @@ function App() {
   const [output, setOutput] = useState(null);
 
   const handleRunMRP1 = async (payload) => {
-    const response = await fetch("https://mrp-backend-550i.onrender.com", {
+    const response = await fetch("https://mrp-backend-550i.onrender.com/calculate-mrp", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
@@ -58,7 +58,7 @@ function App() {
   };
 
   const handleRunMRP2 = async (payload) => {
-    const response = await fetch("https://mrp-backend-550i.onrender.com", {
+    const response = await fetch("https://mrp-backend-550i.onrender.com/calculate-mrp-ii", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
