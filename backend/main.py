@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Dict
-from .mrp1_logic import calculate_mrp1
-from .mrp2_logic import calculate_mrp2
+from mrp1_logic import calculate_mrp1
+from mrp2_logic import calculate_mrp2
 
 app = FastAPI()
 
