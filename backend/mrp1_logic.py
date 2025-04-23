@@ -18,12 +18,10 @@ def calculate_mrp1(data):
             total_requirements[component][period] = total_requirements[component].get(period, 0) + total
             explode_bom(component, total, period)
 
-    # Step 1: BOM Explosion based on MPS
     for product, schedule in data.mps.items():
         for period, quantity in schedule.items():
             explode_bom(product, quantity, period)
 
-    # Step 2: MRP Calculation with inventory trace updates per phase
     all_items = set(total_requirements.keys()) | set(initial_inventory.keys()) | set(safety_stock.keys())
     all_periods = sorted({p for d in total_requirements.values() for p in d.keys()})
 
@@ -32,7 +30,7 @@ def calculate_mrp1(data):
         planned_orders[item] = {}
         net_requirements[item] = {}
         inventory_on_hand = current_inventory.get(item, 0)
-        ss = safety_stock.get(item, 0)  # Use 0 as default if not specified
+        ss = safety_stock.get(item, 0)
 
         for period in all_periods:
             inventory_trace[item][f"{period}_start"] = inventory_on_hand
