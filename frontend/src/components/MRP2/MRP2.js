@@ -42,22 +42,32 @@ function MRP2({
   };
 
   return (
-    <div>
-      <div style={{ marginTop: 20 }}>
-        <button onClick={() => setSubTab('inputs')}>Vstupy</button>
-        <button onClick={() => setSubTab('outputs')}>Výstupy</button>
+    <div style={{ maxWidth: '1000px', marginLeft: '0', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      
+      {/* Prepínacie tlačidlá */}
+      <div style={{ marginBottom: '24px', display: 'flex', gap: '10px' }}>
+        <button onClick={() => setSubTab('inputs')} style={{ padding: '8px 16px', backgroundColor: subTab === 'inputs' ? '#2563eb' : '#e2e8f0', color: subTab === 'inputs' ? '#fff' : '#333', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>
+          Vstupy
+        </button>
+        <button onClick={() => setSubTab('outputs')} style={{ padding: '8px 16px', backgroundColor: subTab === 'outputs' ? '#2563eb' : '#e2e8f0', color: subTab === 'outputs' ? '#fff' : '#333', borderRadius: '6px', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>
+          Výstupy
+        </button>
       </div>
-      {subTab === 'inputs' && (
-        <div>
-          <h2>Zadajte vstupy (MRP 2)</h2>
 
-          <h4>Hlavný výrobný plán (MPS)</h4>
+      {/* Obsah záložiek */}
+      {subTab === 'inputs' && (
+        <div style={{ backgroundColor: '#f9fafb', padding: '24px', borderRadius: '8px', boxShadow: '0 2px 6px rgba(0,0,0,0.05)' }}>
+        <h2 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#1e40af', marginBottom: '20px' }}>
+          Zadajte vstupy (MRP 2)
+        </h2>
+          <h4 style={{ color: '#1e40af' }}>Hlavný výrobný plán (MPS)</h4>
           {mpsItems.map((m, i) => (
-            <div key={i}>
+            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
               <input
                 placeholder="Položka"
                 value={m.item}
                 onChange={e => handleMpsItemChange(i, 'item', e.target.value)}
+                style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
               />
               {weeks.map(w => (
                 <input
@@ -66,53 +76,60 @@ function MRP2({
                   type="number"
                   value={m.schedule[w] || ''}
                   onChange={e => handleMpsItemChange(i, w, e.target.value)}
-                  style={{ marginLeft: 4 }}
+                  style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
                 />
               ))}
             </div>
           ))}
-          <button onClick={() => setMpsItems([...mpsItems, { item: '', schedule: {} }])}>+ Pridať položku MPS</button>
+          <button onClick={() => setMpsItems([...mpsItems, { item: '', schedule: {} }])} style={{ marginTop: '8px', padding: '6px 12px', borderRadius: '6px', border: 'none', backgroundColor: '#1e40af', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+            + Pridať položku MPS
+          </button>
 
-          <h4>Kusovník (BOM)</h4>
+          <h4 style={{ color: '#1e40af', marginTop: '20px' }}>Kusovník (BOM)</h4>
           {bomItems.map((b, i) => (
-            <div key={i}>
+            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
               <input placeholder="Rodič" value={b.parent} onChange={e => {
                 const copy = [...bomItems]; copy[i].parent = e.target.value; setBomItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
               <input placeholder="Komponent" value={b.component} onChange={e => {
                 const copy = [...bomItems]; copy[i].component = e.target.value; setBomItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
               <input placeholder="Množstvo" type="number" value={b.quantity} onChange={e => {
                 const copy = [...bomItems]; copy[i].quantity = e.target.value; setBomItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
             </div>
           ))}
-          <button onClick={() => setBomItems([...bomItems, { parent: '', component: '', quantity: '' }])}>+ Pridať záznam BOM</button>
+          <button onClick={() => setBomItems([...bomItems, { parent: '', component: '', quantity: '' }])} style={{ marginTop: '8px', padding: '6px 12px', borderRadius: '6px', border: 'none', backgroundColor: '#1e40af', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+            + Pridať záznam BOM
+          </button>
 
-          <h4>Skladové zásoby</h4>
+          <h4 style={{ color: '#1e40af', marginTop: '20px' }}>Skladové zásoby</h4>
           {inventoryItems.map((inv, i) => (
-            <div key={i}>
+            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
               <input placeholder="Položka" value={inv.item} onChange={e => {
                 const copy = [...inventoryItems]; copy[i].item = e.target.value; setInventoryItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
               <input placeholder="Množstvo" type="number" value={inv.quantity} onChange={e => {
                 const copy = [...inventoryItems]; copy[i].quantity = e.target.value; setInventoryItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
             </div>
           ))}
-          <button onClick={() => setInventoryItems([...inventoryItems, { item: '', quantity: '' }])}>+ Pridať položku zásob</button>
+          <button onClick={() => setInventoryItems([...inventoryItems, { item: '', quantity: '' }])} style={{ marginTop: '8px', padding: '6px 12px', borderRadius: '6px', border: 'none', backgroundColor: '#1e40af', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+            + Pridať zásoby
+          </button>
 
-          <h4>Výrobné kapacity (len pre vyrábané položky)</h4>
+          <h4 style={{ color: '#1e40af', marginTop: '20px' }}>Výrobné kapacity</h4>
           {[...new Set(bomItems.map(b => b.parent))].map((parentItem, i) => {
             const capIndex = capacityItems.findIndex(c => c.item === parentItem);
             const currentValue = capIndex !== -1 ? capacityItems[capIndex].quantity : '';
 
             return (
-              <div key={i}>
+              <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
                 <input
                   placeholder="Položka"
                   value={parentItem}
                   disabled
+                  style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
                 />
                 <input
                   placeholder="Množstvo"
@@ -127,29 +144,48 @@ function MRP2({
                     }
                     setCapacityItems(copy);
                   }}
+                  style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }}
                 />
               </div>
             );
           })}
 
-          <h4>Bezpečnostná zásoba</h4>
+          <h4 style={{ color: '#334155', marginTop: '20px' }}>Bezpečnostná zásoba</h4>
           {safetyStockItems.map((ss, i) => (
-            <div key={i}>
+            <div key={i} style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
               <input placeholder="Položka" value={ss.item} onChange={e => {
                 const copy = [...safetyStockItems]; copy[i].item = e.target.value; setSafetyStockItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
               <input placeholder="Množstvo" type="number" value={ss.quantity} onChange={e => {
                 const copy = [...safetyStockItems]; copy[i].quantity = e.target.value; setSafetyStockItems(copy);
-              }} />
+              }} style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
             </div>
           ))}
-          <button onClick={() => setSafetyStockItems([...safetyStockItems, { item: '', quantity: '' }])}>+ Pridať bezpečnostnú zásobu</button>
+          <button onClick={() => setSafetyStockItems([...safetyStockItems, { item: '', quantity: '' }])} style={{ marginTop: '8px', padding: '6px 12px', borderRadius: '6px', border: 'none', backgroundColor: '#1e40af', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+            + Pridať bezpečnostnú zásobu
+          </button>
 
-          <br />
-          <button onClick={handleRunMRP2Click}>Spustiť výpočet MRP II</button>
+          <div style={{ marginTop: '30px', textAlign: 'center' }}>
+            <button onClick={handleRunMRP2Click} style={{
+              backgroundColor: '#2563eb',
+              color: 'white',
+              fontWeight: 'bold',
+              padding: '12px 24px',
+              borderRadius: '6px',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem'
+            }}>
+              Spustiť výpočet MRP II
+            </button>
+          </div>
         </div>
       )}
-      {subTab === 'outputs' && output && <RenderOutputs output={output} />}
+
+      {/* Výstupy */}
+      {subTab === 'outputs' && output && (
+        <RenderOutputs output={output} />
+      )}
     </div>
   );
 }

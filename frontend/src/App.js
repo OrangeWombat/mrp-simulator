@@ -13,14 +13,14 @@ function App() {
 
   const [bomItems, setBomItems] = useState([
     { parent: 'Dzus', component: 'OvocnaZlozka', quantity: '1' },
-    { parent: 'Dzus', component: 'Obal', quantity: '1' },
+    { parent: 'Dzus', component: 'Voda', quantity: '1' },
     { parent: 'OvocnaZlozka', component: 'JablkovyKoncentrat', quantity: '2' },
     { parent: 'OvocnaZlozka', component: 'PomerancovyKoncentrat', quantity: '1' }
   ]);
 
   const [inventoryItems, setInventoryItems] = useState([
     { item: 'OvocnaZlozka', quantity: '30' },
-    { item: 'Obal', quantity: '50' },
+    { item: 'Voda', quantity: '50' },
     { item: 'JablkovyKoncentrat', quantity: '20' },
     { item: 'PomerancovyKoncentrat', quantity: '10' }
   ]);
@@ -32,14 +32,14 @@ function App() {
   
   const [safetyStockItems, setSafetyStockItems] = useState([
     { item: 'OvocnaZlozka', quantity: '10' },
-    { item: 'Obal', quantity: '10' },
+    { item: 'Voda', quantity: '10' },
     { item: 'JablkovyKoncentrat', quantity: '10' },
     { item: 'PomerancovyKoncentrat', quantity: '10' }
   ]);
 
   const [leadTimeItems, setLeadTimeItems] = useState([
     { item: 'OvocnaZlozka', leadTime: '1' },
-    { item: 'Obal', leadTime: '1' },
+    { item: 'Voda', leadTime: '1' },
     { item: 'JablkovyKoncentrat', leadTime: '2' },
     { item: 'PomerancovyKoncentrat', leadTime: '1' }
   ]);
@@ -68,13 +68,30 @@ function App() {
     setSubTab("outputs");
   };
 
+  const buttonStyle = {
+    marginLeft: '8px',
+    padding: '8px 16px',
+    backgroundColor: '#1e3a8a',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  };
+  
+  const buttonHoverStyle = {
+    backgroundColor: '#1e40af',
+  };
+  
+
   return (
     <div style={{ padding: 20 }}>
-      <h1>MRP Simulátor</h1>
+      <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold', color: '#1e3a8a', marginBottom: '16px', marginLeft: '10px',  }}>MRP Simulátor</h1>
       <div>
-        <button onClick={() => setTab('main')}>Hlavná stránka</button>
-        <button onClick={() => setTab('mrp1')}>MRP 1</button>
-        <button onClick={() => setTab('mrp2')}>MRP 2</button>
+        <button style={buttonStyle} onClick={() => setTab('main')}>Hlavná stránka</button>
+        <button style={buttonStyle} onClick={() => setTab('mrp1')}>MRP 1</button>
+        <button style={buttonStyle} onClick={() => setTab('mrp2')}>MRP 2</button>
       </div>
 
       {tab === 'main' && <Main />}
